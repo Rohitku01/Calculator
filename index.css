@@ -1,0 +1,11 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+body{
+/* background-image: url(./assests/movie.jpg); */
+font-family: "Font Awesome 6 Free";
+    color:  white;
+    opacity: 2;
+}
