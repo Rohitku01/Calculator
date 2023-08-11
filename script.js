@@ -1,103 +1,72 @@
-
-const movieSearchBox = document.getElementById('movie-search-box');
-const searchList = document.getElementById('search-list');
-const resultGrid = document.getElementById('result-grid');
-
-// load movies from API
-async function loadMovies(searchTerm){
-    // const URL ='http://www.omdbapi.com/?i=tt3896198&apikey=2f308180';
-    const URL = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=2f308180`;
-    const res = await fetch(`${URL}`);
-    const data = await res.json();
-    // console.log(data.Search);
-    if(data.Response == "True") displayMovieList(data.Search);
-}
-
-
-
-function findMovies(){
-    let searchTerm = (movieSearchBox.value).trim();
-    if(searchTerm.length > 0){
-        searchList.classList.remove('hide-search-list');
-        loadMovies(searchTerm);
-    } else {
-        searchList.classList.add('hide-search-list');
-    }
-}
-
-function displayMovieList(movies){
-    searchList.innerHTML = "";
-    for(let idx = 0; idx < 1; idx++){
-        let movieListItem = document.createElement('div');
-        movieListItem.dataset.id = movies[idx].imdbID; // setting movie id in  data-id
-        movieListItem.classList.add('search-list-item');
-        if(movies[idx].Poster != "N/A")
-            moviePoster = movies[idx].Poster;
-        else 
-            moviePoster = "image_not_found.png";
-
-        movieListItem.innerHTML = `
-
-        <div class = "search-item-thumbnail">
-            <img src ="${moviePoster}" style="margin-top: 20px; margin-right:1%">
-        </div>
-        <div class = "search-item-info">
-        <br/>
-        <h3 style="text-align:center;">${movies[idx].Title}</h3>
-        <br/>
-
-    </div>
-        `;
-        searchList.appendChild(movieListItem);
-    }
-    loadMovieDetails();
-}
-
-function loadMovieDetails(){
-    const searchListMovies = searchList.querySelectorAll('.search-list-item');
-    searchListMovies.forEach(movie => {
-        movie.addEventListener('click', async () => {
-            // console.log(movie.dataset.id);
-            searchList.classList.add('hide-search-list');
-            movieSearchBox.value = "";
-            const result = await fetch(`http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=fc1fef96`);
-            const movieDetails = await result.json();
-            // console.log(movieDetails);
-            displayMovieDetails(movieDetails);
-        });
-    });
-}
-
-function displayMovieDetails(details){
-    resultGrid.innerHTML = `
-    <div class = "movie-info" style="text-align:center; font-size: 12px; color:rgba(255,255,255,.71);">
- 
-        <ul class = "movie-misc-info" style=" margin-left: 47%; text-align:left;">
-            <li class = "year">Year: ${details.Year}</li>
-            <br/>
-            <li class = "rated">Ratings: ${details.Rated}</li>
-            <br/>
-            <li class = "released">Released: ${details.Released}</li>
-        </ul>
-        <br/>
-        <p class = "genre"><b>Genre:</b> ${details.Genre}</p>
-        <br/>
-        <p class = "writer"><b>Writer:</b> ${details.Writer}</p>
-        <br/>
-        <p class = "actors"><b>Actors: </b>${details.Actors}</p>
-        <br/>
-        <p class = "plot"><b>Plot:</b> ${details.Plot}</p>
-        <br/>
-        <p class = "language"><b>Language:</b> ${details.Language}</p>
-        <br/>
-        <p class = "awards"><b><i class = "fas fa-award"></i></b> ${details.Awards}</p>
-    </div>
-    `;
-}
-
-
-window.addEventListener('click', (event) => {
-    if(event.target.className != "form-control"){
-        searchList.classList.add('hide-search-list');
-    }
+document.getElementById('submit-btn').addEventListener('click', function(){
+    event.preventDefault();
 });
+
+document.getElementById('submit-btn').addEventListener('click', () =>{
+    let username = document.getElementById('inputusername').value;
+    if(username.trim()==""){
+        return;
+    }
+    let url = 'https://api.github.com/users/'+username;
+    fetch(url).then(res=>res.json()).then( data =>{
+        if(data.message=="Not Found"){
+            showhide(1);
+            document.getElementById('fullname').style.display='revert';
+            document.getElementById('fullname').innerHTML = "User don't exist!";
+            return;
+        }
+        showhide(0);
+        document.getElementById('fullname').innerHTML = data.name;
+        document.getElementById('username').innerHTML = "(@"+data.login+")";
+        document.getElementById('userimg').src = data.avatar_url;
+        document.getElementById('follwers').innerHTML = 'Followers:' + data.followers;
+        document.getElementById('following').innerHTML = 'Following:' + data.following;
+        document.getElementById('pub-repos').innerHTML = 'Repo:' + data.public_repos;
+        
+        console.log(data);
+    }).catch(e=>{
+        showhide(1);
+        console.log(e);
+    })
+});
+
+
+document.getElementById('submit-btn').addEventListener('click', () =>{
+    document.getElementById('repogohere').querySelectorAll('*').forEach( n => n.remove() );
+    let username = document.getElementById('inputusername').value;
+    let url = 'https://api.github.com/users/'+username+"/repos";
+    fetch(url).then(res=>res.json()).then( data =>{
+        for(let i = 0; i<data.length; i++){
+        let div = document.createElement('div');
+        div.classList.add('repo');
+        div.innerHTML = data[i].name;
+        document.getElementById('repogohere').appendChild(div);}
+        console.log(data);
+    }).catch(e=>{
+        showhide(1);
+        console.log(e);
+    })
+});
+
+
+
+function showhide(i){
+    if(i == 0){
+        document.getElementById('fullname').style.display='revert';
+        document.getElementById('username').style.display='revert';
+        document.getElementById('follwers').style.display='revert';
+        document.getElementById('repolist').style.display='revert';
+        document.getElementById('userphoto').style.display='revert';
+        document.getElementById('following').style.display='revert';
+        document.getElementById('pub-repos').style.display='revert';
+    }
+    else{
+        document.getElementById('repogohere').querySelectorAll('*').forEach( n => n.remove() );
+        document.getElementById('fullname').style.display='none';
+        document.getElementById('username').style.display='none';
+        document.getElementById('follwers').style.display='none';
+        document.getElementById('repolist').style.display='none';
+        document.getElementById('following').style.display='none';
+        document.getElementById('pub-repos').style.display='none';
+    }
+}
