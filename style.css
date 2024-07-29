@@ -19,7 +19,7 @@ body{
     padding:20px;
     border: none;
     border-radius: 20px;
-    background-color: #333;
+    background-color: #1c1c1c;
     width:320px;
 
     & input[type="text"]{
@@ -43,19 +43,19 @@ body{
         box-sizing: border-box;
     }
 
-    & .equal{
-        grid-row: span 2;
-    }
-
     & .clear{
         background-color: #d4d4d2;
+    }
+
+    & .backspace{
+        background-color: #f7c600;
     }
 
     & .operator{
         background-color: #ff9500;
         color:white;
         border:none;
-        border-radius: px;
+        border-radius: 10px;
     }
 
     & .number{
@@ -63,8 +63,8 @@ body{
         color:white;
     }
 
-    & .root{
+    /* & .root{
         background-color: #f7c600;
     }
-}
+} */
 
