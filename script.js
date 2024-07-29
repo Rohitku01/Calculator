@@ -1,3 +1,5 @@
+// From Gpt
+
 // Function to append value to the display
 function dis(val) {
     const display = document.getElementById("display");
