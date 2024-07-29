@@ -9,25 +9,32 @@
 <body>
     <div class="calculator">
         <input type="text" id="display" readonly />
-        <input type="button" value="A/C" class="clear" oneclick="clr()" />
-        <input type="button" value="%" class="operator" oneclick="dis('%')" />
-        <input type="button" value="/" class="operator" oneclick="dis('/')" />
-        <input type="button" value="*" class="operator" oneclick="dis('*')" />
-        <input type="button" value="7" class="number" oneclick="dis('7')" />
-        <input type="button" value="8" class="number" oneclick="dis('8')" />
-        <input type="button" value="9" class="number" oneclick="dis('9')" />
-        <input type="button" value="-" class="operator" oneclick="dis('-')" />
-        <input type="button" value="4" class="number" oneclick="dis('4')" />
-        <input type="button" value="5" class="number" oneclick="dis('5')" />
-        <input type="button" value="6" class="number" oneclick="dis('6')" />
-        <input type="button" value="+" class="operator" oneclick="dis('+')" />
-        <input type="button" value="1" class="number" oneclick="dis('1')" />
-        <input type="button" value="2" class="number" oneclick="dis('2')" />
-        <input type="button" value="3" class="number" oneclick="dis('3')" />
-        <input type="button" value="=" class="operator equal" oneclick="dis('=')" />
-        <input type="button" value="√" class="root" oneclick="dis('√ ')" />
-        <input type="button" value="0" class="number zero" oneclick="dis('0')" />
-        <input type="button" value="." class="number" oneclick="dis('.')" />
+        <input type="button" value="A/C" class="clear" onclick="clr()" />
+        <input type="button" value="%" class="operator" onclick="dis('%')" />
+        <input type="button" value="/" class="operator" onclick="dis('/')" />
+        <input type="button" value="*" class="operator" onclick="dis('*')" />
+        <input type="button" value="7" class="number" onclick="dis('7')" />
+        <input type="button" value="8" class="number" onclick="dis('8')" />
+        <input type="button" value="9" class="number" onclick="dis('9')" />
+        <input type="button" value="-" class="operator" onclick="dis('-')" />
+        <input type="button" value="4" class="number" onclick="dis('4')" />
+        <input type="button" value="5" class="number" onclick="dis('5')" />
+        <input type="button" value="6" class="number" onclick="dis('6')" />
+        <input type="button" value="+" class="operator" onclick="dis('+')" />
+        <input type="button" value="1" class="number" onclick="dis('1')" />
+        <input type="button" value="2" class="number" onclick="dis('2')" />
+        <input type="button" value="3" class="number" onclick="dis('3')" />
+        <input type="button" value="=" class="operator equal" onclick="dis('=')" />
+        <input type="button" value="√" class="root" onclick="dis('√ ')" />
+        <input type="button" value="0" class="number zero" onclick="dis('0')" />
+        <input type="button" value="." class="number" onclick="dis('.')" />
+        
+        <!-- I made a mistake i used oneClick instead of onclick and it take to much time to find.
+        Firstly thought its js error, after checking code through gpt i get solution though 
+        How fool iam 😅. -->
+
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.9.0/math.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
