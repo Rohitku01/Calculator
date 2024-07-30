@@ -7,7 +7,7 @@ Overview
 A basic calculator application for performing arithmetic operations. It supports addition, subtraction, multiplication, and division.
 
 Live Demo
-Check out the live demo here.
+ https://rohitku01.github.io/Calculator/.
 
 Features
 
